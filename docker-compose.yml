@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  database:
+    image: postgres:13-alpine
+    container_name: postgres_database
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: products
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      TZ: GMT
+
+  adminer:
+    image: adminer
+    container_name: adminer_database
+    restart: unless-stopped
+    ports:
+      - "8888:8080"
+    depends_on:
+      - database
+
+  product-core:
+    build:
+      context: ./product-core
+      dockerfile: Dockerfile
+    container_name: core_container
+    ports:
+      - "4040:4040"
+    depends_on:
+      - database
+
+  product-web:
+    build:
+      context: ./product-web
+      dockerfile: Dockerfile
+    container_name: web_container
+    ports:
+      - "5050:80"
+    links:
+      - product-core
