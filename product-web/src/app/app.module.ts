@@ -1,3 +1,4 @@
+import { MaterialAngular } from './shared/styles/material-angular.module';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { NgModule } from '@angular/core';
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialAngular
   ],
   providers: [],
   bootstrap: [AppComponent]
