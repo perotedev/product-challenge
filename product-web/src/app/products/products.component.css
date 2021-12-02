@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+}
+
+.bg-element{
+    background-color: #E0E0E0;
+}
+
+.margin-x{
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+td.mat-cell {
+    border-bottom-style: none;
+}
+
+td {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+p {
+    margin: 0 !important;
+}
