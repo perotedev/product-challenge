@@ -1,10 +1,11 @@
+<mat-progress-bar *ngIf="isLoadingResults" mode="indeterminate"></mat-progress-bar>
 <section class="pt-3 pb-4"> 
   <table mat-table [dataSource]="productList">
     <ng-container matColumnDef="products">
       <th *matHeaderCellDef >
         <div class="margin-x ">
           <div class="row">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 mb-2">
               <p class="fs-3 text-primary pt-2">
                 Listagem de Produtos
               </p>
@@ -12,8 +13,11 @@
             
             <div class="col"></div>
 
-            <div class="col-12 col-md-2 pt-2">
-              <p class="fw-normal">Total de produtos: {{productList.length}}</p>
+            <div class=" col-12 col-md-2 mb-2">
+              <select id="filterSelect" class="form-select bg-primary text-light" aria-label="Default select example">
+                <option selected (click)="selectFilterCategory(0)">Filtrar por categoria</option>
+                <option *ngFor="let category of productCategoriesList" (click)="selectFilterCategory(category['id'])">{{category.name}}</option>
+              </select>
             </div>
 
             <div class="col-12 col-md-3 mb-2">
@@ -31,7 +35,7 @@
           <div class="row align-items-center py-3">
             <div class="col-12 col-md-5 px-5 mb-1">
               <p class="fw-bold fs-3 py-2 lh-1">{{element.description}}</p>
-              <p class="fs-6">ID: {{element.id}} | Categoria: {{element.category}}</p>
+              <p class="fs-6"><span class="fw-bold">ID:</span> {{element.id}} | <span class="fw-bold">Categoria:</span> {{element.category}}</p>
             </div>
 
             <div class="col-12 col-md-4 px-5">
@@ -40,7 +44,7 @@
               </p>
               <div class="row mt-1 text-start">
                 <div class="col-2">
-                  <p class="fw-bold fs-6">Valor: </p>
+                  <p class="fw-bold fs-6">Preço: </p>
                 </div>
                 <div class="col-10 ps-4">
                   <p class="fw-bold fs-4">R$ {{getDecimalNumber(element.price)}}</p>
@@ -51,12 +55,12 @@
             <div class="col-12 col-md-3 px-5 py-2  mt-1">
               <div class="row align-items-center">
                 <div class="col-6 pe-2">
-                  <button type="button" class="btn btn-primary  w-100">
-                    <mat-icon >edit</mat-icon> Editar </button>
+                  <button type="button" class="btn btn-primary ps-2 w-100">
+                    <i class="bi bi-pencil-fill pe-1"></i> Editar </button>
                 </div>
                 <div class="col-6 ps-2">
-                  <button type="button" class="btn btn-danger w-100">
-                    <mat-icon>delete</mat-icon> Excluir </button>
+                  <button type="button" class="btn btn-danger ps-2 w-100">
+                    <i class="bi bi-trash-fill pe-1"></i> Excluir </button>
                 </div>
               </div>
             </div>
@@ -68,5 +72,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <mat-paginator class="w-100 px-4" [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="setPageSizeOptions($event)"></mat-paginator>
 </section>
 

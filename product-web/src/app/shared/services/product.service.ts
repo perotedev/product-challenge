@@ -63,6 +63,38 @@ const fakeProducts: ProductList = {
       price: 400.94,
       category_id: 3,
       category: "Eletrodomésticos"
+    },
+    {
+      id: 8,
+      description: "Notebool Dell G15-SHW12 SSD 500gb RAM 16gb",
+      buy_date: new Date("2021-11-11T00:04:01.665Z"),
+      price: 12500.54,
+      category_id: 2,
+      category: "Eletrônicos"
+    },
+    {
+      id: 9,
+      description: "Microondas Eletrolux STF",
+      buy_date: new Date("2021-11-11T00:04:01.665Z"),
+      price: 400.94,
+      category_id: 3,
+      category: "Eletrodomésticos"
+    },
+    {
+      id: 10,
+      description: "Notebool Dell G15-SHW12 SSD 500gb RAM 16gb",
+      buy_date: new Date("2021-11-11T00:04:01.665Z"),
+      price: 12500.54,
+      category_id: 2,
+      category: "Eletrônicos"
+    },
+    {
+      id: 11,
+      description: "Microondas Eletrolux STF",
+      buy_date: new Date("2021-11-11T00:04:01.665Z"),
+      price: 400.94,
+      category_id: 3,
+      category: "Eletrodomésticos"
     }
   ]
 }
@@ -74,11 +106,11 @@ const fakeCategories: CategoryList = {
       name: "Alimentos"
     },
     {
-      id: 1,
+      id: 2,
       name: "Eletrônicos"
     },
     {
-      id: 1,
+      id: 3,
       name: "Eletrodomésticos"
     }
   ]
