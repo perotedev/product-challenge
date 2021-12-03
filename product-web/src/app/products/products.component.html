@@ -42,14 +42,7 @@
               <p class="fs-6">
                 <span class="fw-bold">Data da Compra:</span> {{element.buy_date | date:'dd/MM/yyyy'}}
               </p>
-              <div class="row mt-1 text-start">
-                <div class="col-2">
-                  <p class="fw-bold fs-6">Preço: </p>
-                </div>
-                <div class="col-10 ps-4">
-                  <p class="fw-bold fs-4">R$ {{getDecimalNumber(element.price)}}</p>
-                </div>
-              </div>
+              <p class="d-flex lh-sm fw-bold fs-6 mt-2">Preço: <span class="fw-bold fs-4 ms-2">R$ {{getDecimalNumber(element.price)}}</span> </p>
             </div>
 
             <div class="col-12 col-md-3 px-5 py-2  mt-1">
