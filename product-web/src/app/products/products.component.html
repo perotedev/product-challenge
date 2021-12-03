@@ -1,5 +1,5 @@
 <mat-progress-bar *ngIf="isLoadingResults" mode="indeterminate"></mat-progress-bar>
-<section class="pt-3 pb-4"> 
+<section class="pt-3"> 
   <table mat-table [dataSource]="productList">
     <ng-container matColumnDef="products">
       <th *matHeaderCellDef >
