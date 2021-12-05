@@ -46,12 +46,14 @@ export class ProductListComponent implements OnInit {
   getProducts() {
     this.isLoadingResults = true;
     this.productService.getProducts(this.filterCategory).subscribe((res:any) => {
+      console.log(res);
       this.dataSource = res;
       this.productList = this.dataSource.slice(0, this.pageSize);
       this.totalCount = this.dataSource.length;
       this.pagina_atual = 0;
       this.isLoadingResults = false;
     });
+    
   }
 
   getProductByDescription(){
