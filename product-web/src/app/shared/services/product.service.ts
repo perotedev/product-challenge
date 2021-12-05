@@ -1,5 +1,4 @@
-import { fakeCategories, fakeProducts } from './../../../environments/fake-data';
-import { CategoryList } from './../interfaces/category.interface';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -28,7 +27,7 @@ export class ProductService {
   }
 
   createProduct(product:Product){
-    // return this.http.post(`${backend_url}/products`, product, this.httpOptions);
+    return this.http.post(`${backend_url}/products`, product, this.httpOptions);
   }
 
   getProductById(id:number){
@@ -43,15 +42,16 @@ export class ProductService {
     }
   }
 
-  getProductsByDescription(filter:string){
+  getProductsByDescription(filter:string, category:number){
     const arrayPost = {
-      filter: filter
+      filter: filter,
+      category: category
     }
     return this.http.post(`${backend_url}/products/get-by-description`, arrayPost, this.httpOptions);
   }
 
   updateProduct(product: Product){
-    // return this.http.put(`${backend_url}/products`, product, this.httpOptions);
+    return this.http.put(`${backend_url}/products`, product, this.httpOptions);
   }
 
   deleteProduct(id:number|any){

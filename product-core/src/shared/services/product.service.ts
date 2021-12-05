@@ -33,13 +33,23 @@ export class ProductService {
         });
     }
 
-    async findByDescription(filter:string): Promise<Product[]>{
-        return getRepository(Product)
-            .createQueryBuilder("product")
-            .leftJoinAndSelect("product.category", "category")
-            .where("product.description like :filter", { filter: `%${filter}%`})
-            .orderBy('description', 'ASC')
-            .getMany();
+    async findByDescription(filter:string, category:number): Promise<Product[]>{
+        if (category === undefined || category < 1){
+            return getRepository(Product)
+                .createQueryBuilder("product")
+                .leftJoinAndSelect("product.category", "category")
+                .where("product.description like :filter", { filter: `%${filter}%`})
+                .orderBy('description', 'ASC')
+                .getMany();
+        } else {
+            return getRepository(Product)
+                .createQueryBuilder("product")
+                .leftJoinAndSelect("product.category", "category")
+                .where("product.description like :filter", { filter: `%${filter}%`})
+                .andWhere('product.categoryId = :category', { category: category})
+                .orderBy('description', 'ASC')
+                .getMany();
+        }
     }
 
     async create(product:Product): Promise<Product> {

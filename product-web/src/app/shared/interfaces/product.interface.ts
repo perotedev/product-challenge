@@ -1,10 +1,9 @@
-import { Category } from 'src/app/shared/interfaces/category.interface';
 export interface Product {
     id?: number;
     description: string;
-    buy_date: string;
+    buyDate: string;
     price: number | string;
-    category_id: number;
+    categoryId: number;
     category?: any;
 }
 

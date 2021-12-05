@@ -19,8 +19,8 @@ export class ProductsController {
 
     @Post('get-by-description')
     @HttpCode(200)
-    async getByDescription(@Body('filter') filter:string): Promise<Product[]> {
-        return this.productService.findByDescription(filter);
+    async getByDescription(@Body('filter') filter:string, @Body('category') category:number): Promise<Product[]> {
+        return this.productService.findByDescription(filter, category);
     }
     
     @Post()

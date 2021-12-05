@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   productList: Product[];
   productCategoriesList: Category[];
   productToExclude: Product;
-  filterCategory: number;
+  filterCategory= 0;
   displayedColumns: string[] = ['products'];
   _paginas: any;
   _links_paginas: any;
@@ -60,7 +60,7 @@ export class ProductListComponent implements OnInit {
     if (description === undefined || description === "" || !description.trim()){
       this.getProducts();
     } else {
-      this.productService.getProductsByDescription(description).subscribe((res:any) => {
+      this.productService.getProductsByDescription(description, this.filterCategory).subscribe((res:any) => {
         this.dataSource = res;
         this.productList = this.dataSource.slice(0, this.pageSize);
         this.totalCount = this.dataSource.length;
@@ -134,7 +134,7 @@ export class ProductListComponent implements OnInit {
     this._snackBar.open(message, 'Fechar',{
       verticalPosition: 'top',
       horizontalPosition: 'end',
-      duration: 3000,
+      duration: 4000,
     });
   }
 }
