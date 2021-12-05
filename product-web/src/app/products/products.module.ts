@@ -1,3 +1,4 @@
+import { HeaderComponent } from './../shared/header/header.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductsRoutingModule } from './products-routing.module';

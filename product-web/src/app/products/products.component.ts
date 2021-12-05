@@ -8,15 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor() { }
 
-  ngOnInit() {
-    const url = this.router.url;
-    
-    if (url === '/produtos'){
-      this.router.navigate(['produtos/listar']);
-    }
-  }
+  ngOnInit() {}
 }

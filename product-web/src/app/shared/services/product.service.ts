@@ -30,6 +30,9 @@ export class ProductService {
     return categories;
   }
 
+  createProduct(product:Product){
+    // return this.http.post(`${backend_url}/products`, product, this.httpOptions);
+  }
 
   getProductById(id:number){
     return this.http.get(`${backend_url}/products/${id}`);

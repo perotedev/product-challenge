@@ -1,65 +1,71 @@
-<form class="row g-3 mx-4 mt-3 was-validated">
-  <div class="col-md-6">
-    <label for="validationServer01" class="form-label">Descrição do Produto</label>
-    <input type="text" class="form-control" id="validationName" value="{{product.description}}" placeholder="Digite a descrição do produto..." required>
-    <div id="validationName" class="invalid-feedback">
-      Digite a descrição produto!
-    </div>
-    <div id="validationName" class="valid-feedback">
-      Descrição do produto parece ok!
-    </div>
-  </div>
+<mat-progress-bar *ngIf="isLoadingResults" mode="indeterminate"></mat-progress-bar>
+<section>
+  <p class="px-4 mt-3">
+    <a routerLink="../">Lista de Produtos</a> > <a>Cadastrar Produto</a>
+  </p>
 
-  <div class="col-md-3">
-    <label for="validationServer02" class="form-label">Data da Compra</label>
-    <input type="date" class="form-control pointer" id="validationDate" value="{{product.buy_date}}" required>
-    <div id="validationDate" class="invalid-feedback">
-      Selecione a data da compra!
-    </div>
-    <div id="validationDate" class="valid-feedback">
-      Data da compra parece ok!
-    </div>
-  </div>
+  <fieldset class="m-4 scheduler-border">
+    <legend class="fw-bold mt-1 text-primary">
+      <p class="mt-4 ms-3">Cadastrar Produto</p>
+    </legend>
+    <form class="row g-2 mx-2 mb-3 was-validated" (submit)="setProduct()">
+      <div class="col-md-6 px-3">
+        <label for="validationServer01" class="form-label">Descrição do Produto</label>
+        <input type="text" class="form-control" id="validationDescription" placeholder="Digite a descrição do produto..." required>
+        <div class="invalid-feedback">
+          Digite a descrição produto!
+        </div>
+        <div class="valid-feedback">
+          Descrição do produto parece ok!
+        </div>
+      </div>
+    
+      <div class="col-md-3 px-3">
+        <label for="validationServer02" class="form-label">Data da Compra</label>
+        <input type="date" class="form-control pointer" id="validationDate"  required>
+        <div class="invalid-feedback">
+          Selecione a data da compra!
+        </div>
+        <div class="valid-feedback">
+          Data da compra parece ok!
+        </div>
+      </div>
+    
+      <div class="col-md-3 px-3">
+        <label for="validationServer03" class="form-label">Preço do Produto R$</label>
+        <input type="number" step=".01" class="form-control" id="validationPrice" placeholder="Digite o preço do produto..."  required>
+        <div class="invalid-feedback">
+          Digite o preço do produto!
+        </div>
+        <div class="valid-feedback">
+          Preço do produto parece ok!
+        </div>
+      </div>
+    
+      <div class="col-md-4 px-3">
+        <label for="validationServer04" class="form-label">Categoria do Produto</label>
+        <select class="form-select pointer" id="validationCategory" required>
+          <option selected disabled >Selecione a categoria...</option>
+          <option *ngFor="let category of categoriesList" value="category.id" (click)="setProductCategory(category.id)">{{category.name}}</option>
+        </select>
+        <div class="invalid-feedback">
+          Selecione a categoria do produto!
+        </div>
+        <div class="valid-feedback">
+          Categoria do produto parece ok!
+        </div>
+      </div>
+    
+      <!-- <select id="filterSelect" class="form-select text-center pointer" aria-label="Default select example">
+        <option selected (click)="selectFilterCategory(0)">Filtrar por categoria</option>
+        <option *ngFor="let category of productCategoriesList" (click)="selectFilterCategory(category['id'])">{{category.name}}</option>
+      </select> -->
+    
+      <div class="col"></div>
 
-  <div class="col-md-3">
-    <label for="validationServer03" class="form-label">Preço do Produto</label>
-    <input type="number" step=".01" class="form-control" id="validationPrice" placeholder="Digite o preço do produto..." value="{{product.price}}" required>
-    <div id="validationPrice" class="invalid-feedback">
-      Digite o preço do produto!
-    </div>
-    <div id="validationPrice" class="valid-feedback">
-      Preço do produto parece ok!
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <label for="validationServer04" class="form-label">Categoria do Produto</label>
-    <select class="form-select pointer" id="validationCategory" required>
-      <option selected disabled value="{{0}}" (click)="cleanProductCategory()">Selecione a categoria...</option>
-      <option *ngFor="let category of categoriesList" value="{{product.category_id}}" (click)="setProductCategory(category)">{{category.name}}</option>
-    </select>
-    <div id="validationCategory" class="invalid-feedback">
-      Selecione a categoria do produto!
-    </div>
-    <div id="validationCategory" class="valid-feedback">
-      Categoria do produto parece ok!
-    </div>
-  </div>
-
-  <!-- <select id="filterSelect" class="form-select text-center pointer" aria-label="Default select example">
-    <option selected (click)="selectFilterCategory(0)">Filtrar por categoria</option>
-    <option *ngFor="let category of productCategoriesList" (click)="selectFilterCategory(category['id'])">{{category.name}}</option>
-  </select> -->
-
-  <div class="col"></div>
-  
-  <div class="col-md-3">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
-      <label class="form-check-label" for="invalidCheck3">
-        Confirmo os dados do produto!
-      </label>
-    </div>
-    <button class="btn btn-primary w-100" type="submit"> <i class="bi bi-plus-circle me-2"></i> Cadastrar</button>
-  </div>
-</form>
+      <div class="col-md-3 px-3 h-100 text-end align-self-center">
+        <button class="btn btn-primary w-100" type="submit"> <i class="bi bi-plus-circle me-2"></i> Cadastrar</button>
+      </div>
+    </form>
+  </fieldset>
+</section>

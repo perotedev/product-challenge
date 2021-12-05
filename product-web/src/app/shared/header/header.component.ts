@@ -22,9 +22,9 @@ export class HeaderComponent implements OnInit {
     this.clock();
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    // this.setWidthWindow(window.innerWidth);
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.setWidthWindow(window.innerWidth);
   }
 
   private clock(){

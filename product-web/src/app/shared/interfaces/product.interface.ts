@@ -1,10 +1,10 @@
 export interface Product {
-    id: number;
+    id?: number;
     description: string;
     buy_date: Date;
     price: number;
     category_id: number;
-    category: string;
+    category?: string;
 }
 
 export interface ProductList {

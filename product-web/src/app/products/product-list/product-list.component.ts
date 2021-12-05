@@ -85,4 +85,8 @@ export class ProductListComponent implements OnInit {
       }, 1000);
     }
   }
+
+  navigateTo(route:string){
+    this.router.navigate([route]);
+  }
 }

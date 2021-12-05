@@ -12,7 +12,7 @@
             </div>
 
             <div class="col-12 col-md-2 mb-2">
-              <button type="button" class="btn btn-primary w-100 text-nowrap" routerLink="../cadastrar">
+              <button type="button" class="btn btn-primary w-100 text-nowrap" routerLink="cadastrar">
                 <i class="bi bi-plus-circle me-1"></i> Cadastrar Produto
               </button>
             </div>
@@ -20,7 +20,7 @@
             <div class=" col-12 col-md-2 mb-2">
               <select id="filterSelect" class="form-select text-center pointer" aria-label="Default select example">
                 <option selected (click)="selectFilterCategory(0)">Filtrar por categoria</option>
-                <option *ngFor="let category of productCategoriesList" (click)="selectFilterCategory(category['id'])">{{category.name}}</option>
+                <option *ngFor="let category of productCategoriesList" (click)="selectFilterCategory(category.id)">{{category.name}}</option>
               </select>
             </div>
 
