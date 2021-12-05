@@ -1,18 +1,18 @@
 USE product_challenge;
 
 -- Creation of product table
-CREATE TABLE  products (
+CREATE TABLE  product (
     id INT NOT NULL AUTO_INCREMENT,
     description varchar(250) NOT NULL,
-    buy_date DATE NOT NULL,
+    buyDate DATE NOT NULL,
     price FLOAT NOT NULL,
-    category_id INT NOT NULL,
+    categoryId INT NOT NULL,
     
     PRIMARY KEY (id)
 );
 
 -- Creation of categories table
-CREATE TABLE categories (
+CREATE TABLE category (
     id INT NOT NULL AUTO_INCREMENT,
     name varchar(150) NOT NULL,
     
@@ -20,13 +20,13 @@ CREATE TABLE categories (
 );
 
 -- AddForeignKey
-ALTER TABLE products ADD CONSTRAINT FK_CategoryId FOREIGN KEY (category_id) REFERENCES categories(id);
+ALTER TABLE product ADD CONSTRAINT FK_CategoryId FOREIGN KEY (categoryId) REFERENCES category(id);
 
-INSERT INTO categories (name)
+INSERT INTO category (name)
 VALUES ('Alimentos'),('Eletrônicos'),('Eletrodomésticos'),('Móveis'),('Materiais de Limpeza');
 
-INSERT INTO products 
-    (description, buy_date, price, category_id)
+INSERT INTO product 
+    (description, buyDate, price, categoryId)
 VALUES 
     ('Coca-Cola Pet 2L', '2021-06-11T00:04:01.665Z', 7.50, 1),
     ('Smartphone Moto G8 Plus 128gb', '2021-10-11T00:04:01.665Z', 1502.99, 2),

@@ -7,6 +7,6 @@ export class Category {
     @PrimaryGeneratedColumn()
     id?: number;
 
-    @Column()
+    @Column('text')
     name: string;
 }

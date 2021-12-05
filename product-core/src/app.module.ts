@@ -1,25 +1,23 @@
-import { ProductModule } from './products/product.module';
+import { ProductsModule } from './products/products.module';
 import { ProductsController } from './products/products.controller';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { getConnectionOptions } from 'typeorm';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'database',
-      port: 3306,
-      username: 'root',
-      password: 'password',
-      database: 'product_challenge',
-      entities: [],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: async () =>
+        Object.assign(await getConnectionOptions(), {
+          autoLoadEntities: true,
+        }),
     }),
-    ProductModule,],
+    ProductsModule
+  ],
   controllers: [
-    ProductsController, AppController],
+    AppController],
   providers: [AppService],
 })
 export class AppModule { }
