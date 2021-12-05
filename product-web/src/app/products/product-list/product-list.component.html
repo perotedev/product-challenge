@@ -19,15 +19,16 @@
 
             <div class=" col-12 col-md-2 mb-2">
               <select id="filterSelect" class="form-select text-center pointer" aria-label="Default select example">
-                <option selected (click)="selectFilterCategory(0)">Filtrar por categoria</option>
+                <option selected disabled>Filtrar por categoria</option>
+                <option (click)="selectFilterCategory(0)">Todas as categorias</option>
                 <option *ngFor="let category of productCategoriesList" (click)="selectFilterCategory(category.id)">{{category.name}}</option>
               </select>
             </div>
 
             <div class="col-12 col-md-3 mb-2">
               <div class="input-group w-100">
-                <input type="text" class="form-control" placeholder="Digite nome do produto ..." aria-label="Digite nome do produto" aria-describedby="btn-search">
-                <button class="btn btn-primary" type="button" id="btn-search">Buscar</button>
+                <input id="descriptionSearch" type="text" class="form-control" placeholder="Digite nome do produto ..." aria-label="Digite nome do produto" aria-describedby="btn-search">
+                <button class="btn btn-primary" type="button" (click)="getProductByDescription()" id="btn-search">Buscar</button>
               </div>
             </div>
           </div>
@@ -39,12 +40,12 @@
           <div class="row align-items-center py-3">
             <div class="col-12 col-md-5 px-5 mb-1">
               <p class="fw-bold fs-3 py-2 lh-1">{{element.description}}</p>
-              <p class="fs-6"><span class="fw-bold">COD:</span> {{element.id}} | <span class="fw-bold">Categoria:</span> {{element.category}}</p>
+              <p class="fs-6"><span class="fw-bold">COD:</span> {{element.id}} | <span class="fw-bold">Categoria:</span> {{element.category.name}}</p>
             </div>
 
             <div class="col-12 col-md-4 px-5">
               <p class="fs-6">
-                <span class="fw-bold">Data da Compra:</span> {{element.buy_date | date:'dd/MM/yyyy'}}
+                <span class="fw-bold">Data da Compra:</span> {{element.buyDate | date:'dd/MM/yyyy'}}
               </p>
               <p class="d-flex lh-sm fw-bold fs-6 mt-2">Preço: <span class="fw-bold fs-4 ms-2">R$ {{getDecimalNumber(element.price)}}</span> </p>
             </div>
@@ -52,7 +53,7 @@
             <div class="col-12 col-md-3 px-5 py-2  mt-1">
               <div class="row align-items-center">
                 <div class="col-6 pe-2">
-                  <button type="button" class="btn btn-primary ps-2 w-100" (click)="editProduct(element.id)">
+                  <button type="button" class="btn btn-primary ps-2 w-100" (click)="editProduct(element)">
                     <i class="bi bi-pencil-fill pe-1"></i> Editar </button>
                 </div>
                 <div class="col-6 ps-2">
@@ -68,6 +69,14 @@
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td colspan="5">
+        <div class="bg-element rounded my-2 p-4">
+          <div class="text-black d-flex align-self-center"><mat-icon class="me-2">mood_bad</mat-icon> <span class="fs-4"> Não encontramos a sua busca na base de dados.</span></div>
+        </div>
+      </td>
+    </tr>
   </table>
   <mat-paginator class="w-100 px-4" [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="setPageSizeOptions($event)"></mat-paginator>
 </section>
@@ -79,9 +88,9 @@
   <div class="modal-body ms-2">
       <p class="fs-6">
           <span class="fw-bold">Descrição: </span> {{productToExclude.description}} <br>
-          <span class="fw-bold">Data de Compra: </span> {{productToExclude.buy_date | date:'dd/MM/yyyy'}} <br>
+          <span class="fw-bold">Data de Compra: </span> {{productToExclude.buyDate | date:'dd/MM/yyyy'}} <br>
           <span class="fw-bold">Preço: </span> R$ {{getDecimalNumber(productToExclude.price)}} <br>
-          <span class="fw-bold">Categoria: </span> {{productToExclude.category}} <br>
+          <span class="fw-bold">Categoria: </span> {{productToExclude.category.name}} <br>
       </p>
   </div>
   <div class="modal-footer">

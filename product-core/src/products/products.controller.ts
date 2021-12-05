@@ -1,6 +1,7 @@
-import { ProductService } from './product.service';
+import { Product } from './../shared/entities/product.entity';
+import { ProductService } from '../shared/services/product.service';
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
-import { Product } from './entities/product.entity';
+
 
 @Controller('products')
 export class ProductsController {
@@ -18,8 +19,8 @@ export class ProductsController {
 
     @Post('get-by-description')
     @HttpCode(200)
-    async getByDescription(@Body('filter') filter:string): Promise<Product[]> {
-        return this.productService.findByDescription(filter);
+    async getByDescription(@Body('filter') filter:string, @Body('category') category:number): Promise<Product[]> {
+        return this.productService.findByDescription(filter, category);
     }
     
     @Post()
@@ -28,7 +29,7 @@ export class ProductsController {
     }
 
     @Put()
-    async update(@Body() product:Product): Promise<Product> {
+    async update(@Body() product:Product): Promise<any> {
         return this.productService.update(product); 
     }
 

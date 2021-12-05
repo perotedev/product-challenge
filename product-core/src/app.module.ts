@@ -1,5 +1,5 @@
+import { CategoriesModule } from './category/categories.module';
 import { ProductsModule } from './products/products.module';
-import { ProductsController } from './products/products.controller';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,11 +10,12 @@ import { getConnectionOptions } from 'typeorm';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: async () =>
-        Object.assign(await getConnectionOptions(), {
-          autoLoadEntities: true,
-        }),
+      Object.assign(await getConnectionOptions(), {
+        autoLoadEntities: true,
+      }),
     }),
-    ProductsModule
+    ProductsModule,
+    CategoriesModule
   ],
   controllers: [
     AppController],

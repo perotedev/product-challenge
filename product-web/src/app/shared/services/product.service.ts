@@ -1,13 +1,10 @@
-import { fakeCategories, fakeProducts } from './../../../environments/fake-data';
-import { CategoryList } from './../interfaces/category.interface';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Product, ProductList } from './../interfaces/product.interface';
 
 const backend_url = environment.backend;
-const products = fakeProducts;
-const categories = fakeCategories;
 
 @Injectable({
   providedIn: 'root'
@@ -26,28 +23,38 @@ export class ProductService {
   ) { }
 
   getCategories(){
-    // return this.http.get(`${backend_url}/categories`);
-    return categories;
+    return this.http.get(`${backend_url}/categories`);
   }
 
   createProduct(product:Product){
-    // return this.http.post(`${backend_url}/products`, product, this.httpOptions);
+    return this.http.post(`${backend_url}/products`, product, this.httpOptions);
   }
 
   getProductById(id:number){
     return this.http.get(`${backend_url}/products/${id}`);
   }
 
-  getProducts(){
-    // return this.http.get(`${backend_url}/products`);
-    return products;
+  getProducts(filter:number){
+    if (filter !== undefined && filter > 0){
+      return this.http.get(`${backend_url}/products?filter=${filter}`);
+    } else {
+      return this.http.get(`${backend_url}/products`);
+    }
+  }
+
+  getProductsByDescription(filter:string, category:number){
+    const arrayPost = {
+      filter: filter,
+      category: category
+    }
+    return this.http.post(`${backend_url}/products/get-by-description`, arrayPost, this.httpOptions);
   }
 
   updateProduct(product: Product){
-    // return this.http.put(`${backend_url}/products`, product, this.httpOptions);
+    return this.http.put<Product>(`${backend_url}/products`, product, this.httpOptions);
   }
 
   deleteProduct(id:number|any){
-    // return this.http.delete(`${backend_url}/products/${id}`);
+    return this.http.delete(`${backend_url}/products/${id}`);
   }
 }
