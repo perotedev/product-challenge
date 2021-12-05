@@ -11,7 +11,7 @@ docker-compose up --remove-orphans --force-recreate --renew-anon-volumes -d
 echo -e "\n"
 
 # Esperar o MongoDB estar pronto
-while ! docker-compose logs database-crud | grep -m1 'MySQL init process done. Ready for start up'; do
+while ! docker-compose logs database | grep -m1 'MySQL init process done. Ready for start up'; do
     echo -e "👀 Waiting for MySQL database to be ready for connections... "
     sleep 12
 done
