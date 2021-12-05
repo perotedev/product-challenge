@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:4040/products",
+					"raw": "http://localhost:4040/products?filter=0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -19,6 +19,12 @@
 					"port": "4040",
 					"path": [
 						"products"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "0"
+						}
 					]
 				}
 			},
@@ -30,7 +36,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:4040/products/4",
+					"raw": "http://localhost:4040/products/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,7 +44,7 @@
 					"port": "4040",
 					"path": [
 						"products",
-						"4"
+						"1"
 					]
 				}
 			},
@@ -51,7 +57,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"filter\": \"coca\"\n}",
+					"raw": "{\n    \"filter\": \"coca\",\n    \"category\": 0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -108,7 +114,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"Geladeira SAMSUNG PRW300\",\n    \"buyDate\": \"2021-06-11T00:04:01.665Z\",\n    \"price\": 751.53,\n    \"categoryId\": 3,\n    \"id\": 17\n}",
+					"raw": "{\n    \"description\": \"Geladeira SAMSUNG PRW300\",\n    \"buyDate\": \"2021-06-11T00:04:01.665Z\",\n    \"price\": 751.53,\n    \"categoryId\": 3,\n    \"id\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -116,14 +122,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4040/products",
+					"raw": "http://localhost:4040/products/13",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "4040",
 					"path": [
-						"products"
+						"products",
+						"13"
 					]
 				}
 			},
