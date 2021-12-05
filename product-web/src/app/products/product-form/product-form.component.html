@@ -6,7 +6,7 @@
 
   <fieldset class="m-4 scheduler-border bg-element">
     <legend class="fw-bold mt-1 text-primary">
-      <p class="mt-4 ms-3">Cadastrar Produto</p>
+      <p class="mt-4 ms-3">{{pageName}}</p>
     </legend>
     <form class="row g-2 mx-2 mb-3 was-validated" (submit)="sendProduct()">
       <div class="col-md-6 px-3">
@@ -59,7 +59,8 @@
       <div class="col"></div>
 
       <div class="col-md-3 px-3 h-100 text-end align-self-center">
-        <button class="btn btn-primary w-100" type="submit"> <i class="bi bi-plus-circle me-2"></i> Cadastrar</button>
+        <button *ngIf="!isEdit" class="btn btn-primary w-100" type="submit"> <i class="bi bi-plus-circle me-2"></i> Cadastrar</button>
+        <button *ngIf="isEdit" class="btn btn-primary w-100" type="submit"> <i class="bi bi-check-square me-2"></i> Salvar</button>
       </div>
     </form>
   </fieldset>

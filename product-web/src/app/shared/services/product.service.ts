@@ -44,18 +44,10 @@ export class ProductService {
   }
 
   updateProduct(product: Product){
-    const arrayPost = {
-      id: product.id,
-      description: product.description,
-      buy_date: product.buy_date,
-      price: product.price,
-      category_id: product.category_id
-    }
-
-    return this.http.put(`${backend_url}/products`, arrayPost, this.httpOptions);
+    // return this.http.put(`${backend_url}/products`, product, this.httpOptions);
   }
 
   deleteProduct(id:number|any){
-    return this.http.delete(`${backend_url}/products/${id}`);
+    // return this.http.delete(`${backend_url}/products/${id}`);
   }
 }

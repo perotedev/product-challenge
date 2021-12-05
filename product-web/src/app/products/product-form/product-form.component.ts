@@ -22,9 +22,9 @@ export class ProductFormComponent implements OnInit {
   category_id: number;
   isLoadingResults = false;
   pageName = "Cadastrar Produto";
-  private productForm: any;
-  private isEdit = false;
+  isEdit = false;
   private idEdit: any;
+  private productForm: any;
 
   constructor(
     private productService: ProductService,
@@ -78,6 +78,7 @@ export class ProductFormComponent implements OnInit {
     this.isLoadingResults = true;
     this.productService.updateProduct(product);
     this.isLoadingResults = false;
+    localStorage.removeItem('product_id');
     this.snackMessage("Produto "+product.description+" editado com sucesso!");
     this.route.navigate(["produtos"]);
   }
