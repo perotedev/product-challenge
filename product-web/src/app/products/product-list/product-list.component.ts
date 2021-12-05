@@ -45,17 +45,14 @@ export class ProductListComponent implements OnInit {
     this.totalCount = this.dataSource.length;
     this.pagina_atual = 0;
     this.isLoadingResults = false;
-    console.log(this.productList);
   }
 
   getProcuctCategories(){
     this.productCategoriesList = this.productService.getCategories().categories;
-    console.log(this.productCategoriesList);
   }
   
   selectFilterCategory(value:number){
     this.filterCategory = value;
-    console.log(this.filterCategory);
   }
 
   getDecimalNumber(value:any){
@@ -63,7 +60,6 @@ export class ProductListComponent implements OnInit {
   }
 
   setPageSizeOptions(event:any){
-    console.log(event);
     this.pageSize = event.pageSize;
     this.pagina_atual = event.pageIndex;
     this.paginator();
@@ -86,7 +82,12 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  navigateTo(route:string){
-    this.router.navigate([route]);
+  editProduct(id:number){
+    localStorage.setItem('product_id', id.toString());
+    this.router.navigate(['produtos/editar']);
+  }
+
+  deleteProduct(product:Product){
+
   }
 }

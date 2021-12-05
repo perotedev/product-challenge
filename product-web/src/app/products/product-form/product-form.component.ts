@@ -1,10 +1,13 @@
+import { TransformDate } from './../../shared/utils/transformDate';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { fakeProducts } from './../../../environments/fake-data';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { Category } from 'src/app/shared/interfaces/category.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+const productEditTest = fakeProducts;
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -17,42 +20,102 @@ export class ProductFormComponent implements OnInit {
   public price: number;
   public category_id: number;
   public isLoadingResults = false;
-
+  private productForm: any;
+  private isEdit = false;
+  private idEdit: any;
 
   constructor(
     private productService: ProductService,
     private route: Router,
     private _snackBar: MatSnackBar
   ) { }
-
+  
   ngOnInit() {
+    if (this.route.url.includes('editar')){
+      this.isEdit = true;
+      this.idEdit = localStorage.getItem('product_id');
+      this.getProductById(this.idEdit);
+      this.populaForm();
+    }
     this.getProductCategories();
   }
+  
+  sendProduct(){
+    this.setProduct();
+    if (this.formValidation()){
+      const product: Product = {
+        description: this.productForm.description,
+        buy_date: new Date(this.productForm.buy_date).toISOString(),
+        price: Number.parseFloat(this.productForm.price),
+        category_id: this.category_id
+      };
 
-  createProduct(product:Product){
-    this.productService.createProduct(product);
-    this.isLoadingResults = false;
-    this.route.navigate(["produtos"]);
-  }
-
-  setProduct(){
-    this.isLoadingResults = true;
-    const product: Product = {
-      description: (<HTMLInputElement>document.getElementById('validationDescription')).value.toString(),
-      buy_date: new Date((<HTMLInputElement>document.getElementById('validationDate')).value.toString()),
-      price: Number.parseFloat((<HTMLInputElement>document.getElementById('validationPrice')).value.toString()),
-      category_id: this.category_id
-    };
-    if (this.formValidation(product)){
-      this.createProduct(product);
+      if (this.isEdit){
+        this.updateProduct(product);
+      } else {
+        this.createProduct(product);
+      }
     } else {
       this.isLoadingResults = false;
+      this.snackMessage("Por favor, preencha todos os campos!");
     }
   }
 
-  formValidation(product:Product){
+  createProduct(product:Product){
+    this.isLoadingResults = true;
+    this.productService.createProduct(product);
+    this.isLoadingResults = false;
     this.snackMessage("Produto "+product.description+" cadastrado com sucesso!");
-    return true;
+    this.route.navigate(["produtos"]);
+  }
+
+  updateProduct(product:Product){
+    this.isLoadingResults = true;
+    this.productService.updateProduct(product);
+    this.isLoadingResults = false;
+    this.snackMessage("Produto "+product.description+" editado com sucesso!");
+    this.route.navigate(["produtos"]);
+  }
+    
+  setProduct(){
+    const productForm = {
+      description: (<HTMLInputElement>document.getElementById('validationDescription')).value.toString(),
+      buy_date: (<HTMLInputElement>document.getElementById('validationDate')).value.toString(),
+      price: (<HTMLInputElement>document.getElementById('validationPrice')).value.toString(),
+      category_id: this.category_id
+    };
+    this.productForm = productForm;
+  }
+
+  formValidation(){
+    let validation = true;
+    const array = Object.values(this.productForm);
+    array.forEach( element => {
+      if (element === undefined || element === ""){
+        validation = false;
+      }
+    })
+    return validation;
+  }
+
+  getProductById(id:number){
+    // this.productForm = this.productService.getProductById(id);
+    this.productForm = productEditTest.products[Number.parseInt(this.idEdit)-1];
+  }
+
+  populaForm(){
+    let description = <HTMLInputElement>document.getElementById('validationDescription');
+    description.value = this.productForm.description;
+
+    let buy_date = <HTMLInputElement>document.getElementById('validationDate');
+    buy_date.value = TransformDate.getHumanDate(this.productForm.buy_date);
+
+    let price = <HTMLInputElement>document.getElementById('validationPrice');
+    price.value = this.productForm.price;
+
+    let category_id = <HTMLInputElement>document.getElementById('validationCategory');
+    category_id.value = this.productForm.category_id; 
+    this.category_id = this.productForm.category_id;
   }
 
   snackMessage(message:string){
@@ -69,5 +132,10 @@ export class ProductFormComponent implements OnInit {
 
   setProductCategory(category_id:number){
     this.category_id = category_id
+  }
+
+  transformDate(value:string){
+    let data = value.split('T')
+    return data[0];
   }
 }
