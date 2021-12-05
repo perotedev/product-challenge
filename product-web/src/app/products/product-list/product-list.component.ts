@@ -1,10 +1,10 @@
-import { ProductService } from './../../shared/services/product.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { PreviousPageIndex } from './../../shared/interfaces/previous-page.interface';
-import { Category } from './../../shared/interfaces/category.interface';
-import { Product } from './../../shared/interfaces/product.interface';
-import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { PreviousPageIndex } from 'src/app/shared/interfaces/previous-page.interface';
+import { Category } from 'src/app/shared/interfaces/category.interface';
+import { Product } from 'src/app/shared/interfaces/product.interface';
 
 @Component({
   selector: 'app-product-list',

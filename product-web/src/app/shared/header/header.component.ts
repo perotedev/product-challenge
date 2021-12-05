@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:resize')
   onResize() {
-    this.setWidthWindow(window.innerWidth);
+    // this.setWidthWindow(window.innerWidth);
   }
 
   private clock(){
