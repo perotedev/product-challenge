@@ -22,6 +22,7 @@ export class ProductFormComponent implements OnInit {
   category_id: number;
   isLoadingResults = false;
   pageName = "Cadastrar Produto";
+  category = "Selecionar categoria...";
   isEdit = false;
   private idEdit: any;
   private productForm: any;
@@ -74,6 +75,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   updateProduct(product:Product){
+    console.log(product);
     this.isLoadingResults = true;
     this.productService.updateProduct(product);
     this.isLoadingResults = false;
@@ -118,10 +120,7 @@ export class ProductFormComponent implements OnInit {
     let price = <HTMLInputElement>document.getElementById('validationPrice');
     price.value = this.productForm.price;
 
-    let category_id = <HTMLSelectElement>document.getElementById('validationCategory');
-    category_id.value = this.productForm.category;
-    // category_id.selectedIndex = Number.parseInt(this.productForm.category_id);
-    console.log(this.productForm.category_id+" - "+this.productForm.category); 
+    this.category = this.productForm.category;
     this.category_id = this.productForm.category_id;
   }
 
@@ -131,10 +130,6 @@ export class ProductFormComponent implements OnInit {
       horizontalPosition: 'end',
       duration: 3000,
     });
-  }
-
-  changingValue($event:Event){
-    console.log({event: $event});
   }
 
   getProductCategories(){
