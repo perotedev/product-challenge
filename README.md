@@ -54,3 +54,7 @@ Para **remover** todos os containers criados pela aplicação entre na pasta rai
 ```bash
 # para remover todos os containers da aplicação
 ./devops/app.sh remove
+```
+<br>
+
+Caso queira verificar o banco de dados, enquanto a aplicação estiver sendo executada, o mesmo estará disponível em **localhost:3306**, ou se preferir pode acessar o phpMyAdmin em **http://localhost:8888**.

@@ -2,7 +2,7 @@
 INIT="\e[01;33mIniciando Containers\e[00m 🔖\n"
 FRONT_START="\e[01;33mFrontend iniciado em\e[00m"
 BACK_START="\e[01;33mBackend iniciado em\e[00m"
-FRONT_PORT="\e[01;36m http://localhost:5050\e[00m 💡"
+FRONT_PORT="\e[01;36m http://localhost:5050/#/produtos\e[00m 💡"
 BACK_PORT="\e[01;36m http://localhost:4040\e[00m 💡"
 STOP_INIT="\e[01;33mParando Containers\e[00m 🥵\n"
 STOP_FINISH="\e[01;36mA aplicação foi encerrada\e[00m 🥱"

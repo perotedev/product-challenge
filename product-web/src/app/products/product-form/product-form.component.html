@@ -45,8 +45,8 @@
       <div class="col-md-4 px-3">
         <label for="validationServer04" class="form-label">Categoria do Produto</label>
         <select class="form-select form-control pointer" id="validationCategory" required>
-          <option *ngIf="!isEdit" selected disabled >{{category}}</option>
-          <option *ngIf="isEdit" selected value="categoryId" disabled >{{category}}</option>
+          <option *ngIf="!isEdit" value="" selected disabled >Selecione a categoria</option>
+          <option *ngIf="isEdit" selected disabled value="categoryId"  >{{category}}</option>
           <option id="optionElement" *ngFor="let category of categoriesList" (value)="category.id" (click)="setProductCategory(category.id)">{{category.name}}</option>
         </select>
         <div class="invalid-feedback">

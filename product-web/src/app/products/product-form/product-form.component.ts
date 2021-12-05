@@ -1,7 +1,6 @@
 import { TransformDate } from './../../shared/utils/transformDate';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { fakeProducts } from './../../../environments/fake-data';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { Category } from 'src/app/shared/interfaces/category.interface';
