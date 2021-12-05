@@ -8,3 +8,11 @@ body {
     max-width: 100%;
     overflow-x: hidden;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.bg-blue {
+    background-color: #3F51B5;
+}
