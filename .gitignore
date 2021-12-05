@@ -141,6 +141,7 @@ lint/tmp/
 
 #ANGULAR
 # compiled output
+/product-web/.angular
 **/dist
 **/tmp
 **/out-tsc

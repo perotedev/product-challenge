@@ -1,0 +1,16 @@
+.example-spacer {
+    flex: 60 1 auto;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.clock-margin{
+    margin-top: 0.7rem;
+}
+
+header {
+    margin: 0 !important;
+    padding: 0 !important;
+}

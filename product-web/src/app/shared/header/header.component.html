@@ -1,0 +1,31 @@
+<mat-toolbar *ngIf="!isSmallWindow" color="primary" class='w-100'>
+  <h6 class='example-spacer ms-3' title='Home'> Gerenciador de Produtos | V {{version}} </h6>
+  <p class="clock-margin text-light me-4"> 
+    <i class="bi bi-calendar3 me-2"></i> {{date}}
+    <i class="bi bi-clock ms-3 me-2"></i> {{hour}}
+  </p>
+</mat-toolbar>
+
+<nav *ngIf="isSmallWindow" class="navbar navbar-expand-lg navbar-dark bg-blue px-4">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">Gerenciador de Produtos</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="row">
+        <div class="col-8">
+          <p class="clock-margin text-light">
+            <i class="bi bi-calendar3 me-2"></i> {{date}}
+          </p>
+        </div>
+
+        <div class="col-4 text-end">
+          <p class="clock-margin text-light"> 
+            <i class="bi bi-clock ms-3 me-2"></i> {{hour}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
