@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { TransformDate } from './../../shared/utils/transformDate';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,12 +15,13 @@ const productEditTest = fakeProducts;
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-  public categoriesList: Category[];
-  public description: string;
-  public buy_date: Date;
-  public price: number;
-  public category_id: number;
-  public isLoadingResults = false;
+  categoriesList: Category[];
+  description: string;
+  buy_date: Date;
+  price: number;
+  category_id: number;
+  isLoadingResults = false;
+  pageName = "Cadastrar Produto";
   private productForm: any;
   private isEdit = false;
   private idEdit: any;
@@ -31,13 +33,16 @@ export class ProductFormComponent implements OnInit {
   ) { }
   
   ngOnInit() {
+    // this.formValidators();    
+    this.getProductCategories();
+
     if (this.route.url.includes('editar')){
+      this.pageName = "Editar Produto";
       this.isEdit = true;
       this.idEdit = localStorage.getItem('product_id');
       this.getProductById(this.idEdit);
       this.populaForm();
     }
-    this.getProductCategories();
   }
   
   sendProduct(){
@@ -87,6 +92,15 @@ export class ProductFormComponent implements OnInit {
     this.productForm = productForm;
   }
 
+  formValidators(){
+  //   this.productFormGroup = this.formBuilder.group({
+  //     desscription: ['', [Validators.required]],
+  //     buy_date: ['', [Validators.required]],
+  //     price: ['', [Validators.required]],
+  //     category_id: ['', [Validators.required]]
+  //   });
+  }
+
   formValidation(){
     let validation = true;
     const array = Object.values(this.productForm);
@@ -113,8 +127,10 @@ export class ProductFormComponent implements OnInit {
     let price = <HTMLInputElement>document.getElementById('validationPrice');
     price.value = this.productForm.price;
 
-    let category_id = <HTMLInputElement>document.getElementById('validationCategory');
-    category_id.value = this.productForm.category_id; 
+    let category_id = <HTMLSelectElement>document.getElementById('validationCategory');
+    category_id.selectedIndex = Number.parseInt(this.productForm.category_id); 
+    category_id.selectedOptions.namedItem(this.productForm.category);
+    console.log(this.productForm.category_id+" - "+this.productForm.category); 
     this.category_id = this.productForm.category_id;
   }
 
@@ -124,6 +140,10 @@ export class ProductFormComponent implements OnInit {
       horizontalPosition: 'end',
       duration: 3000,
     });
+  }
+
+  changingValue($event:Event){
+    console.log({event: $event});
   }
 
   getProductCategories(){

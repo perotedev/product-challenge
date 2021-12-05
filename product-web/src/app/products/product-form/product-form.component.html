@@ -1,10 +1,10 @@
 <mat-progress-bar *ngIf="isLoadingResults" mode="indeterminate"></mat-progress-bar>
 <section>
   <p class="px-4 mt-3">
-    <a routerLink="../">Lista de Produtos</a> > <a>Cadastrar Produto</a>
+    <a routerLink="../">Lista de Produtos</a> > <a>{{pageName}}</a>
   </p>
 
-  <fieldset class="m-4 scheduler-border">
+  <fieldset class="m-4 scheduler-border bg-element">
     <legend class="fw-bold mt-1 text-primary">
       <p class="mt-4 ms-3">Cadastrar Produto</p>
     </legend>
@@ -22,7 +22,7 @@
     
       <div class="col-md-3 px-3">
         <label for="validationServer02" class="form-label">Data da Compra</label>
-        <input type="date" class="form-control pointer" id="validationDate"  required>
+        <input type="date" class="form-control pointer" id="validationDate" required>
         <div class="invalid-feedback">
           Selecione a data da compra!
         </div>
@@ -33,7 +33,7 @@
     
       <div class="col-md-3 px-3">
         <label for="validationServer03" class="form-label">Preço do Produto R$</label>
-        <input type="number" step=".01" class="form-control" id="validationPrice" placeholder="Digite o preço do produto..."  required>
+        <input type="number" step=".01" class="form-control" id="validationPrice"  placeholder="Digite o preço do produto..."  required>
         <div class="invalid-feedback">
           Digite o preço do produto!
         </div>
@@ -44,9 +44,9 @@
     
       <div class="col-md-4 px-3">
         <label for="validationServer04" class="form-label">Categoria do Produto</label>
-        <select class="form-select pointer" id="validationCategory" required>
+        <select class="form-select form-control pointer" id="validationCategory" required>
           <option selected disabled >Selecione a categoria...</option>
-          <option *ngFor="let category of categoriesList" value="category.id" (click)="setProductCategory(category.id)">{{category.name}}</option>
+          <option id="optionElement" *ngFor="let category of categoriesList" (value)="category.id" (click)="setProductCategory(category.id)">{{category.name}}</option>
         </select>
         <div class="invalid-feedback">
           Selecione a categoria do produto!
@@ -54,13 +54,8 @@
         <div class="valid-feedback">
           Categoria do produto parece ok!
         </div>
-      </div>
-    
-      <!-- <select id="filterSelect" class="form-select text-center pointer" aria-label="Default select example">
-        <option selected (click)="selectFilterCategory(0)">Filtrar por categoria</option>
-        <option *ngFor="let category of productCategoriesList" (click)="selectFilterCategory(category['id'])">{{category.name}}</option>
-      </select> -->
-    
+      </div>    
+      
       <div class="col"></div>
 
       <div class="col-md-3 px-3 h-100 text-end align-self-center">

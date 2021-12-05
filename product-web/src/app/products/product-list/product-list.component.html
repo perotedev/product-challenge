@@ -56,7 +56,7 @@
                     <i class="bi bi-pencil-fill pe-1"></i> Editar </button>
                 </div>
                 <div class="col-6 ps-2">
-                  <button type="button" class="btn btn-danger ps-2 w-100" (click)="deleteProduct(element)">
+                  <button type="button" class="btn btn-danger ps-2 w-100" (click)="openExcludeModal(content, element)">
                     <i class="bi bi-trash-fill pe-1"></i> Excluir </button>
                 </div>
               </div>
@@ -72,3 +72,24 @@
   <mat-paginator class="w-100 px-4" [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="setPageSizeOptions($event)"></mat-paginator>
 </section>
 
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header bg-blue">
+    <h5 class="modal-title fw-bold fs-5 text-light pt-3 ps-2" id="modal-basic-title">Deseja realmente excluir o produto?</h5>
+  </div>
+  <div class="modal-body ms-2">
+      <p class="fs-6">
+          <span class="fw-bold">Descrição</span> {{productToExclude.description}} <br>
+          <span class="fw-bold">Data de Compra</span> {{productToExclude.buy_date | date:'dd/MM/yyyy'}} <br>
+          <span class="fw-bold">Preço</span> R$ {{productToExclude.price}} <br>
+          <span class="fw-bold">Categoria</span> {{productToExclude.category}} <br>
+      </p>
+  </div>
+  <div class="modal-footer">
+      <button type="button"  class="btn btn-primary text-light me-2" (click)="c('Save click')" tabindex="-1">
+        <i class="bi bi-hand-thumbs-down-fill"></i> Não
+      </button>
+      <button type="button"  class="btn btn-danger me-2" (click)="c(['Save click', deleteProduct()])" tabindex="-1">
+        <i class="bi bi-hand-thumbs-up-fill"></i> Sim
+      </button>
+  </div>
+</ng-template>
