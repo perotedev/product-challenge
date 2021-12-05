@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -32,7 +33,8 @@ export class ProductListComponent implements OnInit {
     private titleService: Title,
     private router: Router,
     private productService: ProductService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -43,19 +45,40 @@ export class ProductListComponent implements OnInit {
 
   getProducts() {
     this.isLoadingResults = true;
-    this.dataSource = this.productService.getProducts().products;
-    this.productList = this.dataSource.slice(0, this.pageSize);
-    this.totalCount = this.dataSource.length;
-    this.pagina_atual = 0;
-    this.isLoadingResults = false;
+    this.productService.getProducts(this.filterCategory).subscribe((res:any) => {
+      this.dataSource = res;
+      this.productList = this.dataSource.slice(0, this.pageSize);
+      this.totalCount = this.dataSource.length;
+      this.pagina_atual = 0;
+      this.isLoadingResults = false;
+    });
+  }
+
+  getProductByDescription(){
+    this.isLoadingResults = true;
+    let description: string = (<HTMLInputElement>document.getElementById('descriptionSearch')).value;
+    if (description === undefined || description === "" || !description.trim()){
+      this.getProducts();
+    } else {
+      this.productService.getProductsByDescription(description).subscribe((res:any) => {
+        this.dataSource = res;
+        this.productList = this.dataSource.slice(0, this.pageSize);
+        this.totalCount = this.dataSource.length;
+        this.pagina_atual = 0;
+        this.isLoadingResults = false;
+      });
+    }
   }
 
   getProcuctCategories() {
-    this.productCategoriesList = this.productService.getCategories().categories;
+    this.productService.getCategories().subscribe((res:any) => {
+      this.productCategoriesList = res
+    });
   }
 
   selectFilterCategory(value: number) {
     this.filterCategory = value;
+    this.getProducts()
   }
 
   getDecimalNumber(value: any) {
@@ -97,8 +120,21 @@ export class ProductListComponent implements OnInit {
 
   deleteProduct() {
     this.isLoadingResults = true;
-    this.productService.deleteProduct(this.productToExclude.id);
-    console.log(this.productToExclude.id);
-    this.getProducts();
+    this.productService.deleteProduct(this.productToExclude.id).subscribe((res:any) => {
+      if (res.affected > 0){
+        this.snackMessage("Produto "+this.productToExclude.description+" excluído");
+        this.getProducts();
+      } else {
+        this.snackMessage("Produto "+this.productToExclude.description+" NÃO pôde excluído");
+      }
+    });
+  }
+
+  snackMessage(message:string){
+    this._snackBar.open(message, 'Fechar',{
+      verticalPosition: 'top',
+      horizontalPosition: 'end',
+      duration: 3000,
+    });
   }
 }

@@ -31,7 +31,7 @@ VALUES
     ('Coca-Cola Pet 2L', '2021-06-11T00:04:01.665Z', 7.50, 1),
     ('Smartphone Moto G8 Plus 128gb', '2021-10-11T00:04:01.665Z', 1502.99, 2),
     ('Microondas LG HTS21', '2021-11-11T00:04:01.665Z', 252.54, 3),
-    ('Geladeira Brastem FrostFree HS7', '2020-04-12T00:04:01.665Z', 1255.54, 3),
+    ('Geladeira Brastemp FrostFree HS7', '2020-04-12T00:04:01.665Z', 1255.54, 3),
     ('Nutella 500g + 100g Grátis', '2021-07-22T00:04:01.665Z', 45.54, 1),
     ('Notebool Dell G15-SHW12 SSD 500gb RAM 16gb', '2019-09-23T00:04:01.665Z', 11322.54, 2),
     ('Microondas Eletrolux STF', '2021-03-01T00:04:01.665Z', 400.54, 3),

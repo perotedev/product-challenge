@@ -133,7 +133,9 @@ export class ProductFormComponent implements OnInit {
   }
 
   getProductCategories(){
-    this.categoriesList = this.productService.getCategories().categories;
+    this.productService.getCategories().subscribe((res:any) => {
+      this.categoriesList = res;
+    });
   }
 
   setProductCategory(category_id:number){

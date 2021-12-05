@@ -1,6 +1,7 @@
-import { ProductService } from './product.service';
+import { Product } from './../shared/entities/product.entity';
+import { ProductService } from '../shared/services/product.service';
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
-import { Product } from './entities/product.entity';
+
 
 @Controller('products')
 export class ProductsController {

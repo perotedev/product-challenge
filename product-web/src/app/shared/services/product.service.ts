@@ -6,8 +6,6 @@ import { environment } from 'src/environments/environment';
 import { Product, ProductList } from './../interfaces/product.interface';
 
 const backend_url = environment.backend;
-const products = fakeProducts;
-const categories = fakeCategories;
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +24,7 @@ export class ProductService {
   ) { }
 
   getCategories(){
-    // return this.http.get(`${backend_url}/categories`);
-    return categories;
+    return this.http.get(`${backend_url}/categories`);
   }
 
   createProduct(product:Product){
@@ -38,9 +35,19 @@ export class ProductService {
     return this.http.get(`${backend_url}/products/${id}`);
   }
 
-  getProducts(){
-    // return this.http.get(`${backend_url}/products`);
-    return products;
+  getProducts(filter:number){
+    if (filter !== undefined && filter > 0){
+      return this.http.get(`${backend_url}/products?filter=${filter}`);
+    } else {
+      return this.http.get(`${backend_url}/products`);
+    }
+  }
+
+  getProductsByDescription(filter:string){
+    const arrayPost = {
+      filter: filter
+    }
+    return this.http.post(`${backend_url}/products/get-by-description`, arrayPost, this.httpOptions);
   }
 
   updateProduct(product: Product){
@@ -48,6 +55,6 @@ export class ProductService {
   }
 
   deleteProduct(id:number|any){
-    // return this.http.delete(`${backend_url}/products/${id}`);
+    return this.http.delete(`${backend_url}/products/${id}`);
   }
 }

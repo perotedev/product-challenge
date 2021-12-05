@@ -1,4 +1,4 @@
-import { Product } from './entities/product.entity';
+import { Product } from '../entities/product.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getRepository, Repository } from 'typeorm';
@@ -36,8 +36,9 @@ export class ProductService {
     async findByDescription(filter:string): Promise<Product[]>{
         return getRepository(Product)
             .createQueryBuilder("product")
+            .leftJoinAndSelect("product.category", "category")
             .where("product.description like :filter", { filter: `%${filter}%`})
-            .orderBy('id', 'ASC')
+            .orderBy('description', 'ASC')
             .getMany();
     }
 
