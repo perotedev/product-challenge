@@ -12,3 +12,7 @@ body {
 .pointer {
     cursor: pointer;
 }
+
+.bg-blue {
+    background-color: #3F51B5;
+}
