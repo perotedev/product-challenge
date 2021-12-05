@@ -8,10 +8,12 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: products
+      POSTGRES_DB: product_challenge
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
-      TZ: GMT
+      TZ: UTF-8
+    volumes:
+      - ./database/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
   adminer:
     image: adminer
