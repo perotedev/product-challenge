@@ -33,7 +33,6 @@ export class ProductFormComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-    // this.formValidators();    
     this.getProductCategories();
 
     if (this.route.url.includes('editar')){
@@ -93,15 +92,6 @@ export class ProductFormComponent implements OnInit {
     this.productForm = productForm;
   }
 
-  formValidators(){
-  //   this.productFormGroup = this.formBuilder.group({
-  //     desscription: ['', [Validators.required]],
-  //     buy_date: ['', [Validators.required]],
-  //     price: ['', [Validators.required]],
-  //     category_id: ['', [Validators.required]]
-  //   });
-  }
-
   formValidation(){
     let validation = true;
     const array = Object.values(this.productForm);
@@ -129,8 +119,8 @@ export class ProductFormComponent implements OnInit {
     price.value = this.productForm.price;
 
     let category_id = <HTMLSelectElement>document.getElementById('validationCategory');
-    category_id.selectedIndex = Number.parseInt(this.productForm.category_id); 
-    category_id.selectedOptions.namedItem(this.productForm.category);
+    category_id.value = this.productForm.category;
+    // category_id.selectedIndex = Number.parseInt(this.productForm.category_id);
     console.log(this.productForm.category_id+" - "+this.productForm.category); 
     this.category_id = this.productForm.category_id;
   }
