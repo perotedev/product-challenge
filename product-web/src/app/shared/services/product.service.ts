@@ -51,7 +51,7 @@ export class ProductService {
   }
 
   updateProduct(product: Product){
-    return this.http.put(`${backend_url}/products`, product, this.httpOptions);
+    return this.http.put<Product>(`${backend_url}/products`, product, this.httpOptions);
   }
 
   deleteProduct(id:number|any){

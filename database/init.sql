@@ -20,7 +20,7 @@ CREATE TABLE category (
 );
 
 -- AddForeignKey
-ALTER TABLE product ADD CONSTRAINT FK_CategoryId FOREIGN KEY (categoryId) REFERENCES category(id);
+ALTER TABLE product ADD CONSTRAINT FK_CategoryId FOREIGN KEY (categoryId) REFERENCES category(id) ON DELETE RESTRICT ON UPDATE CASCADE;;
 
 INSERT INTO category (name)
 VALUES ('Alimentos'),('Eletrônicos'),('Eletrodomésticos'),('Móveis'),('Materiais de Limpeza');

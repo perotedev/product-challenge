@@ -108,8 +108,8 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  editProduct(id: number) {
-    localStorage.setItem('product_id', id.toString());
+  editProduct(product:Product) {
+    localStorage.setItem('productEdit', JSON.stringify(product));
     this.router.navigate(['produtos/editar']);
   }
 

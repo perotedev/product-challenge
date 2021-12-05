@@ -1,10 +1,10 @@
 import { Category } from './category.entity';
-import { Column, Entity, JoinTable, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product { 
     @PrimaryGeneratedColumn()
-    id?: number;
+    id: number;
 
     @Column()
     description: string;

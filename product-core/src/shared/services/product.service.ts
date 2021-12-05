@@ -57,8 +57,8 @@ export class ProductService {
     }
 
     async update(product: Product): Promise<Product> {
-        this.productRepository.update(product.id, product);
-        return product;
+        await this.productRepository.update(product.id, product);
+        return this.productRepository.findOne(product.id);
     }
 
     async delete(id:number): Promise<any> {

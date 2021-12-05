@@ -7,7 +7,6 @@ import { Product } from 'src/app/shared/interfaces/product.interface';
 import { Category } from 'src/app/shared/interfaces/category.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-const productEditTest = fakeProducts;
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -23,8 +22,8 @@ export class ProductFormComponent implements OnInit {
   pageName = "Cadastrar Produto";
   category = "Selecionar categoria...";
   isEdit = false;
-  private productForm: any;
-  private idEdit: any;
+  private idEdit: number;
+  private productForm: Product;
 
   constructor(
     private productService: ProductService,
@@ -38,20 +37,22 @@ export class ProductFormComponent implements OnInit {
     if (this.route.url.includes('editar')){
       this.pageName = "Editar Produto";
       this.isEdit = true;
-      this.idEdit = localStorage.getItem('product_id');
-      this.getProductById(this.idEdit);
+      let productStorage: any = localStorage.getItem('productEdit');
+      this.productForm = JSON.parse(productStorage);
+      let id: any = this.productForm.id;
+      this.idEdit = Number.parseInt(id);
       this.populaForm();
     }
   }
   
   ngOnDestroy(): void {
-    localStorage.removeItem('product_id');
+    localStorage.clear();
   }
 
   sendProduct(){
     this.setProduct();
     if (this.formValidation()){
-      const product: Product = {
+      let product: Product = {
         description: this.productForm.description,
         buyDate: new Date(this.productForm.buyDate).toISOString(),
         price: this.productForm.price,
@@ -59,6 +60,7 @@ export class ProductFormComponent implements OnInit {
       };
 
       if (this.isEdit){
+        product.id = this.idEdit;
         this.updateProduct(product);
       } else {
         this.createProduct(product);
@@ -79,7 +81,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   updateProduct(product:Product){
-    console.log(product);
     this.isLoadingResults = true;
     this.productService.updateProduct(product).subscribe((res:any) => {
       this.isLoadingResults = false;
@@ -107,13 +108,6 @@ export class ProductFormComponent implements OnInit {
       }
     })
     return validation;
-  }
-
-  getProductById(id:number){
-    this.productService.getProductById(id).subscribe((res:any) => {
-      console.log(res);
-      this.productForm = res;
-    });
   }
 
   populaForm(){
