@@ -53,11 +53,12 @@ export class ProductFormComponent implements OnInit {
     if (this.formValidation()){
       let product: Product = {
         description: this.productForm.description,
-        buyDate: new Date(this.productForm.buyDate).toISOString(),
+        buyDate: new Date(this.productForm.buyDate).toISOString().split('.')[0],
         price: this.productForm.price,
         categoryId: this.productForm.categoryId?this.productForm.categoryId:this.categoryId
       };
 
+      console.log(product);
       if (this.isEdit){
         product.id = this.idEdit;
         this.updateProduct(product);
@@ -95,6 +96,7 @@ export class ProductFormComponent implements OnInit {
       price: (<HTMLInputElement>document.getElementById('validationPrice')).value.toString(),
       categoryId: (<HTMLSelectElement>document.getElementById('validationCategory')).selectedIndex
     };
+    console.log(productForm);
     this.productForm = productForm;
   }
 
