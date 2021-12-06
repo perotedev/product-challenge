@@ -18,10 +18,10 @@
             </div>
 
             <div class=" col-12 col-md-2 mb-2">
-              <select id="filterSelect" class="form-select text-center pointer" aria-label="Default select example">
+              <select id="filterSelect" class="form-select text-center pointer" (change)="selectFilterCategory($event)" aria-label="Default select example">
                 <option selected disabled>Filtrar por categoria</option>
-                <option (click)="selectFilterCategory(0)">Todas as categorias</option>
-                <option *ngFor="let category of productCategoriesList" (click)="selectFilterCategory(category.id)">{{category.name}}</option>
+                <option>Todas as categorias</option>
+                <option *ngFor="let category of productCategoriesList">{{category.name}}</option>
               </select>
             </div>
 
