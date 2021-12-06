@@ -78,8 +78,9 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  selectFilterCategory(value: number) {
-    this.filterCategory = value;
+  selectFilterCategory($event:Event) {
+    let target = $event.target as HTMLSelectElement
+    this.filterCategory = target.selectedIndex-1;
     this.getProducts()
   }
 
