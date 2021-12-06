@@ -55,7 +55,7 @@ export class ProductFormComponent implements OnInit {
         description: this.productForm.description,
         buyDate: new Date(this.productForm.buyDate).toISOString(),
         price: this.productForm.price,
-        categoryId: this.categoryId
+        categoryId: this.productForm.categoryId?this.productForm.categoryId:this.categoryId
       };
 
       if (this.isEdit){
@@ -93,7 +93,7 @@ export class ProductFormComponent implements OnInit {
       description: (<HTMLInputElement>document.getElementById('validationDescription')).value.toString(),
       buyDate: (<HTMLInputElement>document.getElementById('validationDate')).value.toString(),
       price: (<HTMLInputElement>document.getElementById('validationPrice')).value.toString(),
-      categoryId: this.categoryId
+      categoryId: (<HTMLSelectElement>document.getElementById('validationCategory')).selectedIndex
     };
     this.productForm = productForm;
   }
@@ -106,6 +106,10 @@ export class ProductFormComponent implements OnInit {
         validation = false;
       }
     })
+    if (!this.isEdit && array[3]<1){
+      validation = false;
+    }
+    
     return validation;
   }
 
@@ -135,10 +139,6 @@ export class ProductFormComponent implements OnInit {
     this.productService.getCategories().subscribe((res:any) => {
       this.categoriesList = res;
     });
-  }
-
-  setProductCategory(categoryId:number){
-    this.categoryId = categoryId
   }
 
   transformDate(value:string){
