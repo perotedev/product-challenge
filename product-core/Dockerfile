@@ -18,13 +18,16 @@ COPY ./ /home/node/product-core
 
 # Instala as dependências
 RUN npm install
-# RUN npm install && npm install --save @nestjs/mongoose mongoose
 
 # Constrói a aplicação
 RUN npm run build
 
 # Start server
 FROM node:slim
+
+ENV TZ=America/Manaus
+RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
+
 WORKDIR /home/node/product-core
 COPY --from=build /home/node/product-core /home/node/product-core
 EXPOSE 4040
