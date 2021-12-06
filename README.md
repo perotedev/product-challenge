@@ -33,7 +33,7 @@ Entre na pasta raiz do repositório **`"product-challenge"`** pelo terminal e ex
 
 ```bash
 Backend iniciado em  http://localhost:4040 💡
-Frontend iniciado em  http://localhost:5050 💡
+Frontend iniciado em  http://localhost:5050/#/produtos 💡
 ```
 
 Após isso a aplicação estará sendo executada.<br><br>
