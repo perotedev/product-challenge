@@ -62,7 +62,6 @@ export class ProductFormComponent implements OnInit {
         product.id = this.idEdit;
         this.updateProduct(product);
       } else {
-        console.log(product);
         this.createProduct(product);
       }
     } else {
@@ -96,14 +95,12 @@ export class ProductFormComponent implements OnInit {
       price: (<HTMLInputElement>document.getElementById('validationPrice')).value.toString(),
       categoryId: (<HTMLSelectElement>document.getElementById('validationCategory')).selectedIndex
     };
-    console.log({set: productForm});
     this.productForm = productForm;
   }
 
   formValidation(){
     let validation = true;
     const array = Object.values(this.productForm);
-    console.log(array);
     array.forEach( element => {
       if (element === undefined || element === ""){
         validation = false;

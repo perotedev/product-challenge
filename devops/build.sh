@@ -10,6 +10,12 @@ echo -e "\n$INIT"
 docker-compose up --remove-orphans --force-recreate --renew-anon-volumes -d
 echo -e "\n"
 
+# Esperar o MySQL estar pronto
+while ! docker-compose logs database | grep -m1 'mysqld: ready for connections'; do
+    echo -e "👀 Waiting for MySQL database to be ready for connections... "
+    sleep 12
+done
+
 # Mostra o endereço da aplicaçao
 echo -e "\n$BACK_START $BACK_PORT"
 echo -e "$FRONT_START $FRONT_PORT"
