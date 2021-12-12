@@ -19,7 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
@@ -91,7 +91,8 @@ import { MatTreeModule } from '@angular/material/tree';
         MatTreeModule,
         OverlayModule,
         PortalModule,
-        ScrollingModule
+        ScrollingModule,
+        ReactiveFormsModule
     ],
     exports: [
         MatButtonModule,
@@ -139,7 +140,8 @@ import { MatTreeModule } from '@angular/material/tree';
         MatTreeModule,
         OverlayModule,
         PortalModule,
-        ScrollingModule
+        ScrollingModule,
+        ReactiveFormsModule
     ]
 })
 export class MaterialAngular {}
