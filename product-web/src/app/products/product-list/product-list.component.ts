@@ -111,6 +111,7 @@ export class ProductListComponent implements OnInit {
   }
 
   editProduct(product:Product) {
+    delete product.category;
     localStorage.setItem('productEdit', JSON.stringify(product));
     this.router.navigate(['produtos/editar']);
   }

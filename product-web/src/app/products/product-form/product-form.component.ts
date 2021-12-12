@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { Product } from 'src/app/shared/interfaces/product.interface';
 import { Category } from 'src/app/shared/interfaces/category.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-form',
@@ -13,52 +14,60 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProductFormComponent implements OnInit {
   categoriesList: Category[];
-  description: string;
-  buyDate: Date;
-  price: number;
-  categoryId: number;
-  isLoadingResults = false;
+  formGroup: FormGroup;
   pageName = "Cadastrar Produto";
-  category = "Selecionar categoria...";
+  isLoadingResults = false;
   isEdit = false;
   private idEdit: number;
-  private productForm: Product;
 
   constructor(
     private productService: ProductService,
     private route: Router,
+    private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar
   ) { }
   
   ngOnInit() {
+    this.initForm();
     this.getProductCategories();
-
+    
     if (this.route.url.includes('editar')){
       this.pageName = "Editar Produto";
       this.isEdit = true;
       let productStorage: any = localStorage.getItem('productEdit');
-      this.productForm = JSON.parse(productStorage);
-      let id: any = this.productForm.id;
-      this.idEdit = Number.parseInt(id);
-      this.populaForm();
+      productStorage = JSON.parse(productStorage);
+      this.idEdit = productStorage.id;
+      this.populateForm(productStorage);
     }
   }
   
-  ngOnDestroy(): void {
-    localStorage.clear();
+  initForm(){
+    this.formGroup = this.formBuilder.group({
+      description: new FormControl('', [Validators.required, Validators.maxLength(150)]),
+      buyDate: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
+      categoryId: new FormControl('', [Validators.required])
+    })
+  }
+
+  populateForm(productForm: Product){
+    this.formGroup.patchValue({
+      description: productForm.description,
+      buyDate: TransformDate.getHumanDate(productForm.buyDate),
+      price: productForm.price,
+      categoryId: productForm.categoryId
+    })
+  }
+  
+  getProductCategories(){
+    this.productService.getCategories().subscribe((res:any) => {
+      this.categoriesList = res;
+    });
   }
 
   sendProduct(){
-    this.setProduct();
-    if (this.formValidation()){
-      let product: Product = {
-        description: this.productForm.description,
-        buyDate: new Date(this.productForm.buyDate).toISOString().split('.')[0],
-        price: this.productForm.price,
-        categoryId: this.productForm.categoryId?this.productForm.categoryId:this.categoryId
-      };
-
-      console.log(product);
+    let product: Product = this.formGroup.value;
+    if (this.formValidation()){  
       if (this.isEdit){
         product.id = this.idEdit;
         this.updateProduct(product);
@@ -71,6 +80,17 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
+  formValidation(){
+    let validation = true;
+    const array = Object.values(this.formGroup.value);
+    array.forEach( element => {
+      if (element === null || element === undefined || element === ""){
+        validation = false;
+      }
+    })    
+    return validation;
+  }
+  
   createProduct(product:Product){
     this.isLoadingResults = true;
     this.productService.createProduct(product).subscribe((res:any) => {
@@ -88,47 +108,7 @@ export class ProductFormComponent implements OnInit {
       this.route.navigate(["produtos"]);
     });
   }
-    
-  setProduct(){
-    const productForm = {
-      description: (<HTMLInputElement>document.getElementById('validationDescription')).value.toString(),
-      buyDate: (<HTMLInputElement>document.getElementById('validationDate')).value.toString(),
-      price: (<HTMLInputElement>document.getElementById('validationPrice')).value.toString(),
-      categoryId: (<HTMLSelectElement>document.getElementById('validationCategory')).selectedIndex
-    };
-    console.log(productForm);
-    this.productForm = productForm;
-  }
-
-  formValidation(){
-    let validation = true;
-    const array = Object.values(this.productForm);
-    array.forEach( element => {
-      if (element === undefined || element === ""){
-        validation = false;
-      }
-    })
-    if (!this.isEdit && array[3]<1){
-      validation = false;
-    }
-    
-    return validation;
-  }
-
-  populaForm(){
-    let description = <HTMLInputElement>document.getElementById('validationDescription');
-    description.value = this.productForm.description;
-
-    let buyDate = <HTMLInputElement>document.getElementById('validationDate');
-    buyDate.value = TransformDate.getHumanDate(this.productForm.buyDate);
-
-    let price = <HTMLInputElement>document.getElementById('validationPrice');
-    price.value = this.productForm.price.toString();
-
-    this.category = this.productForm.category.name;
-    this.categoryId = this.productForm.categoryId;
-  }
-
+  
   snackMessage(message:string){
     this._snackBar.open(message, 'Fechar',{
       verticalPosition: 'top',
@@ -136,15 +116,8 @@ export class ProductFormComponent implements OnInit {
       duration: 3000,
     });
   }
-
-  getProductCategories(){
-    this.productService.getCategories().subscribe((res:any) => {
-      this.categoriesList = res;
-    });
-  }
-
-  transformDate(value:string){
-    let data = value.split('T')
-    return data[0];
+  
+  ngOnDestroy(): void {
+    localStorage.removeItem('productEdit');
   }
 }
